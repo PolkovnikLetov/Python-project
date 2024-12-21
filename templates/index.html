@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список книг</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        img {
+            width: 150px; /* Увеличение ширины изображения до 150px */
+            height: auto; /* Автоматическая высота с пропорциями */
+        }
+        .sort-buttons,
+        .search-bar {
+            margin-bottom: 20px;
+        }
+        .sort-buttons a,
+        .search-bar input,
+        .search-bar button {
+            margin-right: 10px;
+            padding: 10px 15px;
+            border-radius: 5px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            cursor: pointer;  /* Указатель для кнопки */
+        }
+        .search-bar input {
+            padding: 10px;
+            margin-right: 5px;
+            width: 200px;
+            background-color: white; /* Цвет фона поисковой строки */
+            color: #000; /* Цвет текста поисковой строки */
+            border: 1px solid #007bff; /* Граница для поисковой строки */
+            border-radius: 5px; /* Скругление углов */
+        }
+        .search-bar button {
+            background-color: white; /* Цвет фона кнопки поиска */
+            color: #007bff; /* Цвет текста кнопки поиска */
+            border: 2px solid #007bff; /* Граница для кнопки поиска */
+        }
+        .search-bar button:hover {
+            background-color: #e2e6ea; /* Цвет фона кнопки при наведении */
+        }
+        .sort-buttons a:hover,
+        .search-bar button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Список книг</h1>
+
+    <div class="search-bar">
+        <form method="get" action="/">
+            <input type="text" name="search" placeholder="Поиск книги..." value="{{ current_search }}">
+            <button type="submit">Поиск</button>
+        </form>
+    </div>
+
+    <div class="sort-buttons">
+        <a href="?sort_by=rating&order={{ 'desc' if current_order == 'asc' else 'asc' }}&search={{ current_search }}">
+            Сортировать по рейтингу ({{ 'по убыванию' if current_order == 'asc' else 'по возрастанию' }})
+        </a>
+        <a href="?sort_by=pages&order={{ 'desc' if current_order == 'asc' else 'asc' }}&search={{ current_search }}">
+            Сортировать по количеству страниц ({{ 'по убыванию' if current_order == 'asc' else 'по возрастанию' }})
+        </a>
+        <a href="?sort_by=price&order={{ 'desc' if current_order == 'asc' else 'asc' }}&search={{ current_search }}">
+            Сортировать по цене ({{ 'по убыванию' if current_order == 'asc' else 'по возрастанию' }})
+        </a>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Название</th>
+                <th>Автор</th>
+                <th>Страницы</th>
+                <th>Цена</th>
+                <th>Ссылка</th>
+                <th>Жанр</th>
+                <th>Рейтинг</th>
+                <th>Изображение</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in books %}
+                <tr>
+                    <td>{{ book[0] }}</td>
+                    <td>{{ book[1] }}</td>
+                    <td>{{ book[2] }}</td>
+                    <td>{{ book[3] }}</td>
+                    <td>{{ book[4] }}</td>
+                    <td><a href="{{ book[5] }}">Ссылка</a></td>
+                    <td>{{ book[6] }}</td>
+                    <td>{{ book[7] }}</td>
+                    <td><img src="{{ book[8] }}" alt="{{ book[1] }}"></td>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
