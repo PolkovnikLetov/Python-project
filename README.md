@@ -37,4 +37,8 @@
 • BeautifulSoup 
 • requests
 
+Вот так должен выгялядеть сайт после запуска.
+
+![image](https://github.com/user-attachments/assets/0ce6ee9d-9302-480b-b0e1-08500f86d1ff)
+
 
