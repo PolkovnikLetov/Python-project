@@ -1,17 +1,12 @@
-# Используем базовый образ с Python
-FROM python:3.12
+FROM python:3.9-slim
 
-# Устанавливаем рабочую директорию
 WORKDIR /app
 
-# Копируем файлы проекта в контейнер
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
 COPY . .
 
-# Устанавливаем необходимые зависимости
-RUN pip install  flask beautifulsoup4
-
-# Указываем, что приложение будет прослушивать порт 5000
 EXPOSE 5000
 
-# Команда для запуска вашего приложения
 CMD ["python", "app.py"]

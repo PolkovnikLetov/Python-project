@@ -1,10 +1,17 @@
 #!/bin/bash
 
-# Установите имя образа
-IMAGE_NAME=python-project
+# Выходим из скрипта, если какая-либо команда завершится с ошибкой
+set -e
 
-# Соберите Docker-образ
-docker build -t $IMAGE_NAME .
+# Проверяем, что docker-compose установлен
+if ! command -v docker-compose &> /dev/null
+then
+    echo "docker-compose не установлен. Пожалуйста, установите его перед запуском скрипта."
+    exit 1
+fi
 
-# Запустите контейнер
-docker run -p 5000:5000 $IMAGE_NAME
+# Собираем и запускаем проект с помощью docker-compose
+echo "Запускаем Docker Compose..."
+docker-compose up -d --build
+
+echo "Проект запущен. Вы можете открыть браузер и перейти по адресу http://localhost:5000"
